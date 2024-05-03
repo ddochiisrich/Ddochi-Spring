@@ -18,6 +18,8 @@ public class MemberDAOImpl implements MemberDAO {
 	private ResultSet rs;
 	// 스프링이 제공하는 DriverManagerDataSource 객체 타입의 멤버 선언
 	private  DriverManagerDataSource dataSource;
+	
+	public MemberDAOImpl(){}
 	// 생성자 주입일 때
 	// 스프링이 제공하는 DriverManagerDataSource 객체를 주입받는 생성자 필요
 	public MemberDAOImpl(DriverManagerDataSource dataSource) {
@@ -26,7 +28,9 @@ public class MemberDAOImpl implements MemberDAO {
 	
 	// 셋터 주입일 때
 	// 스프링이 제공하는 DriverManagerDataSource 객체를 주입받는 셋터 메서드 필요
-	
+	public void setDataSource(DriverManagerDataSource dataSource) {
+		this.dataSource = dataSource;
+	}
 	
 	@Override
 	public ArrayList<Member> getMemberList() {
