@@ -6,18 +6,23 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
 import com.springstudy.ch02.domain.Member;
 
+// 생성자 주입(Constructor Injection)
 public class MemberDAOImpl implements MemberDAO {
 
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	// 스프링이 제공하는 DriverManagerDataSource 객체 타입의 멤버 선언
-	
+	private  DriverManagerDataSource dataSource;
 	// 생성자 주입일 때
 	// 스프링이 제공하는 DriverManagerDataSource 객체를 주입받는 생성자 필요
-	
+	public MemberDAOImpl(DriverManagerDataSource dataSource) {
+		this.dataSource = dataSource;
+	}
 	
 	// 셋터 주입일 때
 	// 스프링이 제공하는 DriverManagerDataSource 객체를 주입받는 셋터 메서드 필요
@@ -30,7 +35,7 @@ public class MemberDAOImpl implements MemberDAO {
 		ArrayList<Member> memberList = null;
 		
 		try {
-			
+			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement(selectAllMember);
 			rs = pstmt.executeQuery();
 			
