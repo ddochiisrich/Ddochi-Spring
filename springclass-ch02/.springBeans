@@ -9,6 +9,7 @@
 	<configs>
 		<config>src/main/resources/config/MemberBeanConstructorContext.xml</config>
 		<config>src/main/resources/config/MemberBeanPropertyContext.xml</config>
+		<config>src/main/resources/config/annotation/AnnotationConstructorContext.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

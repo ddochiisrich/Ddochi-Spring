@@ -10,17 +10,9 @@
 
 	<context:property-placeholder
 		location="classpath:config/props/datasource.properties" />
-		
-	<context:component-scan base-package="com/springstudy.ch02.annotation"/>	
 
-	<bean id="memberDAO"
-		class="com.springstudy.ch02.dao.MemberDAOImpl">
-		<property name="dataSource" ref="dataSource" />
-	</bean>
-
-	<bean id="memberService"
-		class="com.springstudy.ch02.service.MemberServiceImplProperty"
-		p:memberDAO-ref="memberDAO" />
+	<context:component-scan
+		base-package="com.springstudy.ch02.annotation" />
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
