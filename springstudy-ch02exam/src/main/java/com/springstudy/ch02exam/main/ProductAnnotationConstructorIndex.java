@@ -16,7 +16,7 @@ public class ProductAnnotationConstructorIndex {
 		ProductService service = ctx.getBean("productServiceImplConstructor", ProductService.class);
 		
 		ArrayList<Product> productList = service.getProductList();
-		System.out.println("### 회원 리스트 - Annotation 생성자 주입 ###");
+		System.out.println("## 회원 리스트 - Annotation 생성자 주입 ##");
 		for(Product p : productList) {
 			System.out.println(p);
 		}
