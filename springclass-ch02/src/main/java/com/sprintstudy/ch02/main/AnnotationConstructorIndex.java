@@ -17,7 +17,7 @@ public class AnnotationConstructorIndex {
 		List<Member> mList = service.getMemberList();
 
 		for(Member m : mList) {
-			System.out.println(m);
+			System.out.println(m + "m");
 		}
 	}
 }
