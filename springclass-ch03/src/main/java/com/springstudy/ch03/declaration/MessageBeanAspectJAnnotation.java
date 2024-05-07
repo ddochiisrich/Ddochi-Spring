@@ -4,6 +4,7 @@ package com.springstudy.ch03.declaration;
  * @Component annotation을 사용해 이 클래스가 스프링 
  * 컴포넌트임을 선언하고 messageBean 이라는 이름을 지정하고 있다.
  **/
+@Component
 public class MessageBeanAspectJAnnotation {
 		
 	private String name;	
