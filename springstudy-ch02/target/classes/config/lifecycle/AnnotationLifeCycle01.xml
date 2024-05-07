@@ -22,3 +22,4 @@
 	<bean id="age" class="java.lang.Integer" c:_0="37" />
 	<bean id="name" class="java.lang.String" c:_0="강감찬" />
 </beans>
+    
