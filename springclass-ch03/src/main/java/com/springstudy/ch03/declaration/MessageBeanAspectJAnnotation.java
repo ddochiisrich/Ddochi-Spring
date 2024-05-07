@@ -12,6 +12,7 @@ public class MessageBeanAspectJAnnotation {
 		
 	private String name;	
 	
+	@Autowired
 	public void setName(String name) {
 		this.name = name;
 	}
