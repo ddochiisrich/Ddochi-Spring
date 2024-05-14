@@ -29,7 +29,7 @@ public class BoardController {
 	
 	// 게시글 삭제
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
-	public String delete(HttpServletResponse response, PrintWriter out, int no, String pass, RedirectAttributes reAttrs, @RequestParam(value="pageNum", defaultValue="1")int pageNum) {
+	public String delete(HttpServletResponse response, PrintWriter out, int no, String pass, RedirectAttributes reAttrs, @RequestParam(value="pageNum", defaultValue="1")int pageNum, @RequestParam(value="type", defaultValue="null")String type, @RequestParam(value="keyword", defaultValue="null")String keyword) {
 		
 		boolean result = boardService.isPassCheck(no, pass);
 		
@@ -46,11 +46,18 @@ public class BoardController {
 		boardService.deleteBoard(no);
 		
 		reAttrs.addAttribute("pageNum", pageNum);
+		if(!(type.equals("null") || keyword.equals("null"))) {
+			
+			reAttrs.addAttribute("type", type);
+			reAttrs.addAttribute("keyword", keyword);
+			
+		}
+		
 		return "redirect:boardList";
 	}
 	
 	@PostMapping("/updateProcess")
-	public String updateProcess(HttpServletResponse response, PrintWriter out, Board board, RedirectAttributes reAttrs, @RequestParam(value="pageNum", defaultValue="1")int pageNum) {
+	public String updateProcess(HttpServletResponse response, PrintWriter out, Board board, RedirectAttributes reAttrs, @RequestParam(value="pageNum", defaultValue="1")int pageNum, @RequestParam(value="type", defaultValue="null")String type, @RequestParam(value="keyword", defaultValue="null")String keyword) {
 		
 		boolean result = boardService.isPassCheck(board.getNo(), board.getPass());
 		
@@ -68,6 +75,12 @@ public class BoardController {
 		//RedirectAttribute
 		reAttrs.addAttribute("pageNum", pageNum);
 		reAttrs.addFlashAttribute("test", "1회성 파라미터");
+		
+		boolean searchOption = (type.equals("null") || keyword.equals("null")) ? false : true;
+		if(searchOption) {
+			reAttrs.addAttribute("type", type);
+			reAttrs.addAttribute("keyword", keyword);
+		}
 		
 		//return "redirect:boardList?pageNum=" + pageNum;	
 		return "redirect:boardList";
