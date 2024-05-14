@@ -75,6 +75,17 @@
 			file1
 		FROM
 		springbbs
+		<where>
+			<if test="type=='title'">
+				title LIKE CONCAT('%', #{keyword}, '%') 
+			</if>
+			<if test="type=='writer'">
+				title LIKE CONCAT('%', #{keyword}, '%') 
+			</if>
+			<if test="type=='content'">
+				title LIKE CONCAT('%', #{keyword}, '%') 
+			</if>
+		</where>
 		ORDER BY no DESC
 		LIMIT #{startRow}, #{num}
 	</select>
@@ -84,6 +95,17 @@
 		COUNT(*) 
 		FROM 
 		springbbs
+		<where>
+			<if test="type=='title'">
+				title LIKE CONCAT('%', #{keyword}, '%') 
+			</if>
+			<if test="type=='writer'">
+				title LIKE CONCAT('%', #{keyword}, '%') 
+			</if>
+			<if test="type=='content'">
+				title LIKE CONCAT('%', #{keyword}, '%') 
+			</if>
+		</where>
 	</select>
 	
 	<!-- DB의 컬럼명과 클래스의 변수이름이 다를때 resultMap을 사용한다. -->

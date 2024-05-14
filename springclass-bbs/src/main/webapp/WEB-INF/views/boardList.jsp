@@ -12,7 +12,7 @@
 		</div>
 		전체 게시글 : ${ listCount } 🐶
 		<!--  검색 폼 -->
-		<form name="searchForm" id="searchForm" action="#"
+		<form name="searchForm" id="searchForm" action="boardList"
 			class="row justify-content-center my-3">
 			<div class="col-auto">
 				<select name="type" class="form-select">

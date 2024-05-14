@@ -10,10 +10,10 @@ public interface BoardDao {
 	public abstract void incrementReadCount(int no);
 	
 	// 전체 게시글수를 읽어오는 메서드 - paging 처리에 필요
-	public abstract int getBoardCount();
+	public abstract int getBoardCount(String type, String keyword);
 
 	// 게시글 리스트 - 테이블에 있는 게시글 리스트를 읽어와 반환하는 메서드
-	public abstract List<Board> boardList(int startRow, int num);
+	public abstract List<Board> boardList(int startRow, int num, String type, String keyword);
 	
 	// 게시글 상세보기 - no 해당하는 게시글 하나를 읽어와 반환하는 메서드
 	Board getBoard(int no);

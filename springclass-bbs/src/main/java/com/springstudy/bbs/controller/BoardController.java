@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,7 +29,7 @@ public class BoardController {
 	
 	// 게시글 삭제
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
-	public String delete(HttpServletResponse response, PrintWriter out, int no, String pass) {
+	public String delete(HttpServletResponse response, PrintWriter out, int no, String pass, RedirectAttributes reAttrs, @RequestParam(value="pageNum", defaultValue="1")int pageNum) {
 		
 		boolean result = boardService.isPassCheck(no, pass);
 		
@@ -44,6 +45,7 @@ public class BoardController {
 		
 		boardService.deleteBoard(no);
 		
+		reAttrs.addAttribute("pageNum", pageNum);
 		return "redirect:boardList";
 	}
 	
@@ -65,6 +67,7 @@ public class BoardController {
 		
 		//RedirectAttribute
 		reAttrs.addAttribute("pageNum", pageNum);
+		reAttrs.addFlashAttribute("test", "1회성 파라미터");
 		
 		//return "redirect:boardList?pageNum=" + pageNum;	
 		return "redirect:boardList";
@@ -114,10 +117,11 @@ public class BoardController {
 	// 게시글 리스트 요청을 처리하는 메서드
 	//@RequestMapping(value={"/boardList", "list"}, method=RequestMethod.GET)
 	@GetMapping({"/boardList", "list"})
-	public String boardList(Model model, @RequestParam(value="pageNum", defaultValue="1")int pageNum) {
+	public String boardList(Model model,@ModelAttribute("test") String test, @RequestParam(value="pageNum", defaultValue="1")int pageNum, @RequestParam(value="type", defaultValue="null")String type, @RequestParam(value="keyword", defaultValue="1")String keyword) {
 		
-		Map<String, Object> modelMap = boardService.boardList(pageNum);
+		Map<String, Object> modelMap = boardService.boardList(pageNum, type, keyword);
 		model.addAllAttributes(modelMap);
+
 		
 		// viewResolver에 설정되어 있는 prefix, suffix를 적용해서 뷰가 만들어진다.
 		// /WEB-INF/views/ + boardList + .jsp

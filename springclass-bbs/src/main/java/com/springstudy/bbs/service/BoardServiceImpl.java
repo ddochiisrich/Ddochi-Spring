@@ -23,14 +23,14 @@ public class BoardServiceImpl implements BoardService {
 	@Autowired
 	private BoardDao boardDao;
 	@Override
-	public Map<String, Object> boardList(int pageNum) {
+	public Map<String, Object> boardList(int pageNum, String type, String keyword) {
 		
 		int currentPage = pageNum;
 		
 		int startRow = (currentPage - 1) * PAGE_SIZE ;
 		
-		List<Board> bList = boardDao.boardList(startRow, PAGE_SIZE);
-		int listCount = boardDao.getBoardCount();
+		List<Board> bList = boardDao.boardList(startRow, PAGE_SIZE, type, keyword);
+		int listCount = boardDao.getBoardCount(type, keyword);
 		int pageCount = listCount / PAGE_SIZE + (listCount % PAGE_SIZE == 0 ? 0 : 1);
 		int startPage = currentPage / PAGE_GROUP * PAGE_GROUP + 1 - (currentPage % PAGE_GROUP == 0 ? PAGE_GROUP : 0);
 		int endPage = startPage + PAGE_GROUP - 1;
@@ -46,6 +46,12 @@ public class BoardServiceImpl implements BoardService {
 		modelMap.put("currentPage", currentPage);
 		modelMap.put("listCount", listCount);
 		modelMap.put("pageGroup", PAGE_GROUP);
+		
+		boolean searchOption = (type.equals("null") || keyword.equals("null")) ? false : true;	
+		if(searchOption) {
+			modelMap.put("type", type);
+			modelMap.put("keyword", keyword);
+		}
 		
 		
 		return modelMap;
