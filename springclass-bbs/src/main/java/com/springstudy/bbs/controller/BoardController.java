@@ -74,7 +74,7 @@ public class BoardController {
 	}
 	
 	@PostMapping("/update")
-	public String updateBoard(Model model, HttpServletResponse response, PrintWriter out, int no, String pass, @RequestParam(value="pageNum", defaultValue="1")int pageNum) {
+	public String updateBoard(Model model, HttpServletResponse response, PrintWriter out, int no, String pass, @RequestParam(value="pageNum", defaultValue="1")int pageNum, @RequestParam(value="type", defaultValue="null")String type, @RequestParam(value="keyword", defaultValue="null")String keyword) {
 		
 		boolean result = boardService.isPassCheck(no, pass);
 		if(!result) { // 비밀번호가 일치하지않는경우
@@ -91,6 +91,14 @@ public class BoardController {
 		model.addAttribute("board", board);
 		model.addAttribute("pageNum", pageNum);
 		
+		boolean searchOption = (type.equals("null") || keyword.equals("null")) ? false : true;
+		
+		model.addAttribute("searchOption", searchOption);
+		if(searchOption) {
+			model.addAttribute("type", type);
+			model.addAttribute("keyword", keyword);
+		}
+		
 		return "updateForm";
 	}
 	
@@ -105,11 +113,18 @@ public class BoardController {
 	
 	//게시 글 상세보기 요청을 처리하는 메서드
 	@RequestMapping("/boardDetail")
-	public String boardDetail(Model model, int no, @RequestParam(value="pageNum", defaultValue="1")int pageNum) {
+	public String boardDetail(Model model, int no, @RequestParam(value="pageNum", defaultValue="1")int pageNum, @RequestParam(value="type", defaultValue="null")String type, @RequestParam(value="keyword", defaultValue="null")String keyword) {
 		
 		Board board = boardService.getBoard(no, true);
 		model.addAttribute("board", board);
 		model.addAttribute("pageNum", pageNum);
+		
+		boolean searchOption = (type.equals("null") || keyword.equals("null")) ? false : true;
+		model.addAttribute("searchOption", searchOption);
+		if(searchOption) {
+			model.addAttribute("type", type);
+			model.addAttribute("keyword", keyword);
+		}
 		
 		return "boardDetail";
 	}
@@ -117,7 +132,10 @@ public class BoardController {
 	// 게시글 리스트 요청을 처리하는 메서드
 	//@RequestMapping(value={"/boardList", "list"}, method=RequestMethod.GET)
 	@GetMapping({"/boardList", "list"})
-	public String boardList(Model model,@ModelAttribute("test") String test, @RequestParam(value="pageNum", defaultValue="1")int pageNum, @RequestParam(value="type", defaultValue="null")String type, @RequestParam(value="keyword", defaultValue="1")String keyword) {
+	public String boardList(Model model,@ModelAttribute("test") String test, 
+			@RequestParam(value="pageNum", defaultValue="1")int pageNum, 
+			@RequestParam(value="type", defaultValue="null")String type, 
+			@RequestParam(value="keyword", defaultValue="null")String keyword) {
 		
 		Map<String, Object> modelMap = boardService.boardList(pageNum, type, keyword);
 		model.addAllAttributes(modelMap);

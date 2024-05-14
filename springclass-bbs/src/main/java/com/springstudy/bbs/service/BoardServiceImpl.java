@@ -48,6 +48,7 @@ public class BoardServiceImpl implements BoardService {
 		modelMap.put("pageGroup", PAGE_GROUP);
 		
 		boolean searchOption = (type.equals("null") || keyword.equals("null")) ? false : true;	
+		modelMap.put("searchOption", searchOption);
 		if(searchOption) {
 			modelMap.put("type", type);
 			modelMap.put("keyword", keyword);
