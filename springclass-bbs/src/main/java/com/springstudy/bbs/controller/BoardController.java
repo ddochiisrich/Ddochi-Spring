@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.springstudy.bbs.domain.Board;
 import com.springstudy.bbs.service.BoardService;
@@ -47,7 +48,7 @@ public class BoardController {
 	}
 	
 	@PostMapping("/updateProcess")
-	public String updateProcess(HttpServletResponse response, PrintWriter out, Board board) {
+	public String updateProcess(HttpServletResponse response, PrintWriter out, Board board, RedirectAttributes reAttrs, @RequestParam(value="pageNum", defaultValue="1")int pageNum) {
 		
 		boolean result = boardService.isPassCheck(board.getNo(), board.getPass());
 		
@@ -61,7 +62,12 @@ public class BoardController {
 			return null;
 		}
 		boardService.updateBoard(board);
-		return "redirect:boardList";	
+		
+		//RedirectAttribute
+		reAttrs.addAttribute("pageNum", pageNum);
+		
+		//return "redirect:boardList?pageNum=" + pageNum;	
+		return "redirect:boardList";
 	}
 	
 	@PostMapping("/update")
