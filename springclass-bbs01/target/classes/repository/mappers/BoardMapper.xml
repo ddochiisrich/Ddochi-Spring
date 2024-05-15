@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springstudy.bbs.mapper.BoardMapper">
+
+	<update id="incrementReadCount">
+		UPDATE springbbs
+		SET read_count = read_count + 1
+		WHERE
+		no = #{no}
+	</update>
+
+	<delete id="deleteBoard">
+		DELETE FROM springbbs
+		WHERE no = #{no}
+	</delete>
+
+	<update id="updateBoard" parameterType="Board">
+		UPDATE springbbs
+		SET title
+		= #{title}, content = #{content}, reg_date = SYSDATE()
+		WHERE no = #{no}
+	</update>
+
+	<select id="isPassCheck" resultType="String">
+		SELECT
+		pass
+		FROM springbbs
+		WHERE no = #{no}
+	</select>
+
+	<insert id="insertBoard" parameterType="Board"
+		useGeneratedKeys="true" keyProperty="no">
+		INSERT INTO springbbs(title,
+		writer, content, reg_date, read_count, pass)
+		VALUES(#{title},
+		#{writer}, #{content}, SYSDATE(), #{readCount}, #{pass})
+	</insert>
+
+	<select id="getBoard" resultType="Board"
+		resultMap="boardResultMap">
+		SELECT
+		*
+		FROM
+		springbbs
+		WHERE no = #{no}
+	</select>
+
+	<select id="boardList" resultType="Board"
+		parameterType="hashmap" resultMap="boardResultMap">
+		SELECT
+		*
+		FROM
+		springbbs
+		<where>
+			<if test="type == 'title'">
+				title LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="type == 'writer'">
+				writer LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="type == 'content'">
+				content LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+		</where>
+		ORDER BY no DESC
+		LIMIT #{startRow}, #{num}
+	</select>
+
+	<select id="getBoardCount" resultType="int">
+		SELECT
+		COUNT(*)
+		FROM springbbs
+		<where>
+			<if test="type == 'title'">
+				title LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="type == 'writer'">
+				writer LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="type == 'content'">
+				content LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+		</where>
+	</select>
+
+	<resultMap id="boardResultMap" type="Board">
+		<id property="no" column="no" />
+		<result property="title" column="title" />
+		<result property="writer" column="writer" />
+		<result property="content" column="content" />
+		<result property="regDate" column="reg_date" />
+		<result property="readCount" column="read_count" />
+		<result property="pass" column="pass" />
+		<result property="file1" column="file1" />
+	</resultMap>
+
+</mapper>
+
+
+
+
+
