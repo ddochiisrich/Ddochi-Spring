@@ -1,9 +1,13 @@
 package com.springstudy.bbs.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.springstudy.bbs.domain.Board;
@@ -23,6 +28,8 @@ import com.springstudy.bbs.service.BoardService;
 @Controller
 public class BoardController {
 
+	private static final String DEFAULT_PATH = "resources/upload/";
+	
 	// BoardService 주입
 	@Autowired
 	private BoardService boardService;
@@ -118,7 +125,30 @@ public class BoardController {
 	// 게시글 쓰기 폼에서 들어오는 게시글 쓰기 요청을 처리하는 메서드
 	//@RequestMapping(value="/writeProcess", method=RequestMethod.POST)
 	@PostMapping("/writeProcess")
-	public String insertBoard(Board board) {
+	public String insertBoard(HttpServletRequest request, String title, String writer, String content, String pass, @RequestParam (value="file1", required=false) MultipartFile multipartFile) throws IOException {
+		
+		System.out.println("originName : " + multipartFile.getOriginalFilename());
+		System.out.println("name : " + multipartFile.getName());
+		
+		Board board = new Board();
+		board.setTitle(title);
+		board.setWriter(writer);
+		board.setContent(content);
+		board.setPass(pass);
+		
+		if(!multipartFile.isEmpty()) {// 파일이 업로드 되었으면
+		
+			String realPath = request.getServletContext().getRealPath(DEFAULT_PATH);
+			
+			UUID uid = UUID.randomUUID();
+			String saveName = uid.toString() + "_" + multipartFile.getOriginalFilename();
+			File file = new File(realPath, saveName);
+			System.out.print("insertBoard - newName : " + file.getName());
+			
+			multipartFile.transferTo(file);
+			board.setFile1(saveName);
+		}
+	
 		boardService.insertBoard(board);
 		
 		return "redirect:boardList";

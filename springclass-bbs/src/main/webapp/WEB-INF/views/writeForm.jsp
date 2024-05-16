@@ -9,8 +9,8 @@
 				<h2 class="fs-3 fw-bold">게시글 수정하기</h2>
 			</div>
 		</div>  
-		<form name="updateForm" action="updateProcess" id="updateForm" 
-			class="row g-3 border-primary" method="post">
+		<form name="writeForm" action="writeProcess" id="writeForm" 
+			class="row g-3 border-primary" method="post" enctype="multipart/form-data">
 		  	<div class="col-4 offset-md-2">
 			    <label for="writer" class="form-label">글쓴이</label>
 			    <input type="text" class="form-control" name="writer"  id="writer" 
@@ -28,6 +28,10 @@
 			    <label for="content" class="form-label">내 용</label>
 			    <textarea class="form-control" name="content" id="content" rows="10"></textarea>
 	  		</div>	
+	  		<div class="col-8 offset-md-2">
+			    <label for="file1" class="form-label">파 일</label>
+			    <input type="file" class="form-control" name="file1"  id="file1" >
+	  		</div>
 	  		<div class="col-8 offset-md-2 text-center mt-5">
 			   <input type="submit" value="등록하기" class="btn btn-primary"/>
 					&nbsp;&nbsp;<input type="button" value="목록보기" 
