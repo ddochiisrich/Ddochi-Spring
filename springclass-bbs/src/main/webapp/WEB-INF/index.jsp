@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko" data-bs-theme="dark">
 <head>
@@ -7,14 +7,40 @@
 <title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="resources/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link href="resources/css/member.css" rel="stylesheet">
 <script src="resources/js/jquery-3.7.1.min.js"></script>
+<script src="resources/js/member.js"></script>
 </head>
 <body>
 	<div class="container">
-		<%@ include file="template/header.jsp" %>
+		<%@ include file="template/header.jsp"%>
 		<jsp:include page="${ param.body }" />
-		<%@ include file="template/footer.jsp" %>
+		<%@ include file="template/footer.jsp"%>
 	</div>
-<script src="resources/bootstrap/bootstrap.bundle.min.js"></script>
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="loginModal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header bg-primary text-white">
+					<h1 class="modal-title fs-5" id="exampleModalLabel">회원 로그인</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">...</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<script src="resources/bootstrap/bootstrap.bundle.min.js"></script>
 </body>
 </html>
