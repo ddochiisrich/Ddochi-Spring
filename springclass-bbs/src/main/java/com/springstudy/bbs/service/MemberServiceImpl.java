@@ -25,6 +25,7 @@ public class MemberServiceImpl implements MemberService {
 			return result;
 		}
 		
+		
 		// 회원이 입력한 비밀번호와 db에 저장된 암호화된 비밀번호를 비교
 		if(passwordEncoder.matches(pass, m.getPass())) { // 로그인 성공
 			result = 1;
@@ -33,6 +34,7 @@ public class MemberServiceImpl implements MemberService {
 		}
 		
 		return result;
+
 	}
 
 	@Override

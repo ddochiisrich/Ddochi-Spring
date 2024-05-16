@@ -26,15 +26,24 @@
 			<div class="modal-content">
 				<div class="modal-header bg-primary text-white">
 					<h1 class="modal-title fs-5" id="exampleModalLabel">회원 로그인</h1>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
-				<div class="modal-body">...</div>
+				<form action="login" method="post" id="modalLoginForm">
+				<div class="modal-body">
+					<div class="mb-3">
+						<label for="userId" class="form-label fw-bold">아이디 : </label>
+						<input type="text" id="userId" name="userId" class="form-control" >
+					</div>
+					<div class="mb-3">
+						<label for="pass" class="form-label fw-bold">비밀번호 : </label>
+						<input type="text" id="pass" name="pass" class="form-control" >
+					</div>
+				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+					<button type="submit" class="btn btn-primary">로그인</button>
 				</div>
+				</form>
 			</div>
 		</div>
 	</div>

@@ -26,7 +26,7 @@ public class MemberController {
 	
 	// 로그인 요청을 처리하는 메서드
 	@PostMapping("/login")
-	public String login(@RequestParam("userrId") String id, String pass, HttpSession session, HttpServletResponse response, Model model) throws IOException {
+	public String login(@RequestParam("userId") String id, String pass, HttpSession session, HttpServletResponse response, Model model) throws IOException {
 		int result = memberService.login(id, pass);
 		if(result == -1) { // id가 존재하지 않는 경
 			response.setContentType("text/html; charset=UTF-8");
@@ -49,8 +49,9 @@ public class MemberController {
 		}
 		
 		Member member = memberService.getMember(id);
-//		session.setAttribute("isLogin", true);
+		session.setAttribute("isLogin", true);
 		model.addAttribute("member", member);
+
 		
 		return "redirect:boardList";
 	}
