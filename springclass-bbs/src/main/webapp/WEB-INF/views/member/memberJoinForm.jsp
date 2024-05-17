@@ -6,14 +6,13 @@
 	제공하는 우편번호 찾기 API를 사용하였다.
 	참고 사이트 : http://postcode.map.daum.net/guide
 -->    
-<script src=
-"https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="resources/js/member.js"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 <div class="row my-5" id="global-content">
 	<div class="col">
 		<div class="row my-3 text-center">
 			<div class="col">
-				<h2 class="fs-3 fw-bold">회원 정보 입력</h2>
+				<h2 class="fs-3 fw-bold">회원 정보 입력해라!!!!!</h2>
 			</div>
 		</div>
 		<form action="joinResult" name="joinForm" method="post" id="joinForm">

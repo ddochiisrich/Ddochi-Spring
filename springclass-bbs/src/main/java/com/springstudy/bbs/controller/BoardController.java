@@ -38,12 +38,6 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	
-	// 회원 가입 폼에서 들어오는 중복 아이디 체크 요청을 처리하는 메서드
-	@RequestMapping("/overlabIdCheck")
-	public String overlapIdCheck(Model model, String id) {
-		return "member/overlapIdCheck";
-	}
-	
 	// 파일 다운로드 요청을 처리하는 메서드
 	@GetMapping("/fileDownload")
 	public void download(HttpServletRequest request, HttpServletResponse response) throws Exception{

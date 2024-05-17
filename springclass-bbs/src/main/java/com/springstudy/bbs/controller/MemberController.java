@@ -23,7 +23,18 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
-	
+
+	// 회원 가입 폼에서 들어오는 중복 아이디 체크 요청을 처리하는 메서드
+	@RequestMapping("/overlapIdCheck")
+	public String overlapIdCheck(Model model, String id) {
+		
+		boolean overlap = memberService.overlapIdCheck(id);
+		model.addAttribute("overlap", overlap);
+		model.addAttribute("id", id);
+		
+		return "forward:WEB-INF/views/member/overlapIdCheck.jsp";
+	}
+
 	// 로그인 요청을 처리하는 메서드
 	@PostMapping("/login")
 	public String login(@RequestParam("userId") String id, String pass, HttpSession session, HttpServletResponse response, Model model) throws IOException {
@@ -35,7 +46,7 @@ public class MemberController {
 			out.println("alert('존재하지 않는 아이디 입니다.');");
 			out.println("history.back();");
 			out.println("</script>");
-			
+
 			return null;
 		}else if(result == 0) { // 비밀번호가 틀린 경우
 			response.setContentType("text/html; charset=UTF-8");
@@ -44,23 +55,23 @@ public class MemberController {
 			out.println("alert('비밀번호가 틀립니다.');");
 			out.println("history.back();");
 			out.println("</script>");
-			
+
 			return null;
 		}
-		
+
 		Member member = memberService.getMember(id);
 		session.setAttribute("isLogin", true);
 		model.addAttribute("member", member);
 
-		
+
 		return "redirect:boardList";
 	}
-	
+
 	// 로그아웃 요청을 처리하는 메서드
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();		
-		
+
 		return "redirect:boardList";
 	}
 }

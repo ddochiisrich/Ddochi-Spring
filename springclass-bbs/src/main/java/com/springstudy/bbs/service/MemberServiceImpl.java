@@ -43,4 +43,20 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.getMember(id);
 	}
 
+	@Override
+	public boolean overlapIdCheck(String id) {
+		Member member = memberDao.getMember(id);
+		if(member == null) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public void addMember(Member member) {
+		member.setPass(passwordEncoder.encode(member.getPass()));
+		memberDao.addMember(member);
+		
+	}
+
 }

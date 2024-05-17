@@ -21,6 +21,12 @@
 	  - http://www.mybatis.org/mybatis-3/ko/index.html
 -->
 <mapper namespace="com.springstudy.bbs.mapper.MemberMapper" >
+
+	<insert id="addMember">
+	INSERT INTO member
+	VALUES (#{id}, #{name}, #{pass}, #{email} , #{mobile}, #{zipcode}, #{address1}, #{address2}, #{phone}, #{emailGet}, SYSDATE());
+	</insert>
+
  <!-- 회원 id에 해당하는 회원 정보를읽어오는 맵핑구문 -->
  	<select id="getMember" resultType="Member">
  	SELECT
