@@ -46,7 +46,7 @@
 							첨부파일없음
 							</c:if>
 							<c:if test="${not empty board.file1}">
-								<a href="upload/${ board.file1 }">파일 다운로드</a>
+								<a href="fileDownload?fileName=${ board.file1 }">${ board.file1 } - 다운로드</a>
 							</c:if>
 							</td>
 						</tr>

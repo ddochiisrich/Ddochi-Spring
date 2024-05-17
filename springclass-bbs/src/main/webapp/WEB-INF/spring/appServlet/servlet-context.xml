@@ -27,4 +27,7 @@
 	
 	<view-controller path="loginForm" view-name="loginForm"/>
 	
+	<view-controller path="/joinForm" view-name="member/memberJoinForm"/>
+	
+	
 </beans:beans>
