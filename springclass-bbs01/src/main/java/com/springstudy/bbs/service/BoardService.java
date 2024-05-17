@@ -1,6 +1,5 @@
 package com.springstudy.bbs.service;
 
-import java.util.List;
 import java.util.Map;
 
 import com.springstudy.bbs.domain.Board;

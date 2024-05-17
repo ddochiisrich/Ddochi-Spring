@@ -15,12 +15,8 @@ public class BoardDaoImpl implements BoardDao {
 	
 	private final String NAME_SPACE = "com.springstudy.bbs.mapper.BoardMapper";
 	
-	private SqlSessionTemplate sqlSession;
-
 	@Autowired
-	public void setSqlSession(SqlSessionTemplate sqlSession) {
-		this.sqlSession = sqlSession;
-	}
+	private SqlSessionTemplate sqlSession;
 	
 	@Override
 	public void deleteBoard(int no) {

@@ -24,9 +24,6 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	
-	public void setBaordService(BoardService boardService) {
-		this.boardService = boardService;
-	}	
 	@PostMapping("/deleteProcess")
 	public String boardDelete(HttpServletResponse response, PrintWriter out, int no, String pass, RedirectAttributes reAttrs, @RequestParam(value="pageNum", defaultValue="1")int pageNum, @RequestParam(value="type", defaultValue="null") String type, @RequestParam(value="keyword", defaultValue="null") String keyword) {
 		boolean result = boardService.isPassCheck(no, pass);

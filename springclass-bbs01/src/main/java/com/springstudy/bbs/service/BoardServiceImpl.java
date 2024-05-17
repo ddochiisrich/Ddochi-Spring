@@ -16,12 +16,8 @@ public class BoardServiceImpl implements BoardService {
 	private final static int PAGE_SIZE = 10;
 	private final static int PAGE_GROUP = 10;
 
-	private BoardDao boardDao;
-	
 	@Autowired
-	public void setBoardDao(BoardDao boardDao) {
-		this.boardDao = boardDao;
-	}
+	private BoardDao boardDao;
 
 	@Override
 	public Board getBoard(int no, boolean isCount) {
