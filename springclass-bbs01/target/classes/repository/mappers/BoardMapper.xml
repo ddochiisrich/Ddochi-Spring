@@ -33,9 +33,9 @@
 	<insert id="insertBoard" parameterType="Board"
 		useGeneratedKeys="true" keyProperty="no">
 		INSERT INTO springbbs(title,
-		writer, content, reg_date, read_count, pass)
+		writer, content, reg_date, read_count, pass, file1)
 		VALUES(#{title},
-		#{writer}, #{content}, SYSDATE(), #{readCount}, #{pass})
+		#{writer}, #{content}, SYSDATE(), #{readCount}, #{pass}, #{file1})
 	</insert>
 
 	<select id="getBoard" resultType="Board"

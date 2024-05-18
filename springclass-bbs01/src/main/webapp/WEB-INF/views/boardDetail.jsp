@@ -49,10 +49,11 @@
 						</tr>
 						<tr>
 							<th>파&nbsp;&nbsp;&nbsp;&nbsp;일</th>
-							<td colspan="3"><c:if test="${ empty board.file1 }">
+							<td colspan="3">
+							<c:if test="${ empty board.file1 }">
 								첨부파일 없음
 							</c:if> <c:if test="${ not empty board.file1 }">
-									<a href="upload/${ board.file1 }">파일 다운로드</a>
+									<a href="fileDownload?fileName=${ board.file1 }">파일 다운로드</a>
 								</c:if></td>
 						</tr>
 						<tr>

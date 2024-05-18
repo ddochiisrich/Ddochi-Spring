@@ -1,18 +1,27 @@
 package com.springstudy.bbs.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.springstudy.bbs.domain.Board;
@@ -21,8 +30,44 @@ import com.springstudy.bbs.service.BoardService;
 @Controller
 public class BoardController {
 
+	private static final String DEFAULT_PATH = "/resources/upload";
+	
 	@Autowired
 	private BoardService boardService;
+	
+	@RequestMapping("/fileDownload")
+	public void download(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		
+		String fileName = request.getParameter("fileName");
+		
+		System.out.println("fileName : " + fileName);
+		
+		String filePath = request.getServletContext().getRealPath(DEFAULT_PATH);
+		
+		File file = new File(filePath, fileName);
+		System.out.println("file.getName() : " + file.getName());
+		
+		response.setContentType("application/download; charset=UTF-8");
+		response.setContentLength((int)file.length());
+		
+		fileName = URLEncoder.encode(file.getName(), "UTF-8");
+		System.out.println("다운로드 fileName : " + fileName);
+		
+		response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\";");
+		
+		response.setHeader("Content-Transfer-Encoding", "binary");
+		
+		OutputStream out = response.getOutputStream();
+		FileInputStream fis = null;
+		
+		fis = new FileInputStream(file);
+		FileCopyUtils.copy(fis, out);
+		
+		if(fis != null) {
+			fis.close();
+		}
+		out.flush();
+	}
 	
 	@PostMapping("/deleteProcess")
 	public String boardDelete(HttpServletResponse response, PrintWriter out, int no, String pass, RedirectAttributes reAttrs, @RequestParam(value="pageNum", defaultValue="1")int pageNum, @RequestParam(value="type", defaultValue="null") String type, @RequestParam(value="keyword", defaultValue="null") String keyword) {
@@ -78,7 +123,31 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/writeProcess", method=RequestMethod.POST)
-	public String insertBoard(Board board) {
+	public String insertBoard(HttpServletRequest request, String title, String writer, String content, String pass, @RequestParam(value="file1", required=false) MultipartFile multipartFile) throws IOException {
+		
+		System.out.println("originName : " + multipartFile.getOriginalFilename());
+		System.out.println("name : " + multipartFile.getName());
+		
+		Board board = new Board();
+		board.setTitle(title);
+		board.setWriter(writer);
+		board.setContent(content);
+		board.setPass(pass);
+		
+		if(!multipartFile.isEmpty()) {
+			String filePath = request.getServletContext().getRealPath(DEFAULT_PATH);
+			
+			UUID uid = UUID.randomUUID();
+			String saveName = uid.toString() + "_" + multipartFile.getOriginalFilename();
+			
+			File file = new File(filePath, saveName);
+			System.out.println("insertBoard - newName : " + file.getName());
+			
+			multipartFile.transferTo(file);
+			board.setFile1(saveName);
+		}
+		
+		
 		boardService.insertBoard(board);
 		
 		return "redirect:boardList";
