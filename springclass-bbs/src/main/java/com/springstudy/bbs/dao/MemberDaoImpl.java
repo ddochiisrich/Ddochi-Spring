@@ -27,4 +27,16 @@ public class MemberDaoImpl implements MemberDao {
 		
 	}
 
+	@Override
+	public String memberPassCheck(String id) {
+		
+		return sqlSession.selectOne(NAME_SPACE + ".memberPassCheck", id);
+	}
+
+	@Override
+	public void updateMember(Member member) {
+		
+		sqlSession.update(NAME_SPACE + ".updateMember", member);
+	}
+
 }

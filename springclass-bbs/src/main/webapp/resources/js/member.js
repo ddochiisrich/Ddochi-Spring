@@ -1,5 +1,99 @@
 $(function() {
 	
+	// 회원 수정 폼
+	$("#memberUpdateForm").on("submit", function(){
+		
+		// 비밀번호가 체크되었는지 확인
+		if(!$("#btnPassCheck").attr("disabled")) {
+			alert("기존 비밀번호를 확인해주세요.");
+			return false;
+		}
+		return joinFormCheck();
+		
+	})
+	
+	// 회원 정보 수정 폼에서 비밀번호 확인 버튼이 클릭되면
+	$("#btnPassCheck").click(function(){
+		let oldPass = $("#oldPass").val();
+		let oldId = $("#id").val();
+		
+		if($.trim(oldPass).length == 0) {
+			alert("기존 비밀번호를 입력해주세요");
+			return false;
+		}
+		
+		let data = "id=" + oldId + "&pass=" + oldPass;
+		console.log("data : " + data );
+		
+		// ajax 구현 방법
+		// XMLHttpRequest 객체
+		// jQuery의 ajax 지원 메서드 $.get(). $.post(), $.ajax();
+		// ES6+ Fetch API
+		$.ajax({
+			url : "passCheck.ajax", 		// 요청주소
+			type : "get", 				// 요청박싱 폼 method
+			data : data, 				// 서버로 보내는 데이터
+			dataType : "json", 			//응답으로 받을 결과 데이터형식
+			success : function(resData){// ajax가 성공되고 응답 데이터를 dataType에 맞게 파싱이 완료면 호출되는 콜백
+				console.log(resData);
+				if(resData.result){// 비밀번호가 맞으면
+					// 비밀번호 확인 버튼을 비활성화 - disabled
+					alert("비밀번호가 확인 되었다!");
+					$("#btnPassCheck").attr("disabled", true);
+					$("#oldPass").attr("readonly", true);
+					$("#pass1").focus();
+					
+				} else {// 비밀번호가 틀리면 
+					alert("기존 비밀번호가 틀립니다.");
+					$("#oldPass").val().focus();
+				}
+			},
+			error:function(){
+			// ajax 작업 중에 오류가 발생되면 호출되는 콜백
+				console.log("error");
+				
+			}
+		});
+
+	})
+	
+	// 회원 가입 폼
+	$("#joinForm").on("submit", function(){
+		
+		
+		let isIdCheck = $("#isIdCheck").val();
+		
+		if(isIdCheck == "false") {
+			alert("아이디 중복검사 하고오너라!!!")
+			return false;
+		}
+		
+		return joinFormCheck();
+	})
+	
+	// 이메일 도메인 셀렉트 박스가 선택하면
+	$("#selectDomain").on("change", function(){
+		let str = $(this).val();
+		
+		if(str == '직접입력') {
+			$("#emailDomain").val("");
+			$("#emailDomain").focus("");
+			$("#emailDomain").attr("readonly", false);
+		}else if(str == '네이버') {
+			$("#emailDomain").val("naver.com");
+			$("#emailDomain").attr("readonly", true);
+		}else if(str == '다음') {
+			$("#emailDomain").val("daum.net");
+			$("#emailDomain").attr("readonly", true);
+		}else if(str == '한메일') {
+			$("#emailDomain").val("hanmail.com");
+			$("#emailDomain").attr("readonly", true);
+		}else if(str == '구글') {
+			$("#emailDomain").val("google.com");
+			$("#emailDomain").attr("readonly", true);
+		}
+	})
+	
 	$("#btnZipcode").click(findZipcode);
 	
 	// 아이디 중복 폼이 서브밋 될때
@@ -15,7 +109,7 @@ $(function() {
 			return false;
 		}
 		
-	});
+	})
 	
 	// id를 아이디로 사용하기
 	$("#btnIdCheckClose").on("click", function(){
@@ -25,7 +119,7 @@ $(function() {
 		opener.document.joinForm.isIdCheck.value=true;
 		window.close();
 		
-	});
+	})
 	
 	
 	$("#btnOverlapId").on("click", function(){
@@ -36,12 +130,13 @@ $(function() {
 		}
 		if(id.length < 5) {
 			alert("아이디는 5글자 이상이어야한다 이놈아!");
+			return false;
 		}
 		
 		let url = "overlapIdCheck?id=" + id;
 		
 		window.open(url, "_blank", "toolbar=no, location=no, status=no, menubar=no, width=500, height=400");
-	});
+	})
 
 	$("#id").on("keyup", function(){
 		let regExp = /[^A-Za-z0-9]/gi;
@@ -49,7 +144,7 @@ $(function() {
 			alert("아이디는 영문 대소문자와 숫자만 가능합니다.");
 			$(this).val($(this).val().replace(regExp,""));			
 		}
-	});
+	})
 
 	$("#pass1").on("keyup", inputCharReplace);
 	$("#pass2").on("keyup", inputCharReplace);
@@ -79,7 +174,7 @@ $(function() {
 	$("#loginForm").submit(function(){
 
 		let id = $("#userId").val();
-		let pass= $("#userPass").vall();
+		let pass= $("#userPass").val();
 
 		if(id.length <= 0) {
 			alert("아이디를 입력해 주세요.");
@@ -93,6 +188,65 @@ $(function() {
 			return false;
 		}
 	})
+	
+	function joinFormCheck() {
+		
+			let name = $("#name").val();
+			let id = $("#id").val();
+			let pass1 = $("#pass1").val();
+			let pass2 = $("#pass2").val();
+			let zipcode = $("#zipcode").val();
+			let address1 = $("#address1").val();
+			let emailId = $("#emailId").val();
+			let emailDomain = $("#emailDomain").val();
+			let mobile2 = $("#mobile2").val();
+			let mobile3 = $("#mobile3").val();
+
+			if( name.length == 0 ) {
+				alert("이름 입력해야지!");
+				return false;
+			}
+			if( id.length == 0 ) {
+				alert("아이디 입력해야지!");
+				return false;
+			}
+			if( id.length < 5 ) {
+				alert("아이디는 5글자 이상 입력해야한다 이놈아!");
+				return false;
+			}
+			if( pass1.length == 0 ) {
+				alert("비밀번호 입력해야지!");
+				return false;
+			}
+			if( pass2.length == 0 ) {
+				alert("비밀번호 확인 입력해야지!");
+				return false;
+			}
+			if( pass1 != pass2 ) {
+				alert("비밀번호랑 비밀번호 확인이 다르잖아!!!");
+				return false;
+			}
+			if( zipcode.length == 0 ) {
+				alert("우편번호 입력해야지!");
+				return false;
+			}
+			if( address1.length == 0 ) {
+				alert("주소 입력해야지!");
+				return false;
+			}
+			if( emailId.length == 0 ) {
+				alert("이메일 입력해야지!");
+				return false;
+			}
+			if( emailDomain.length == 0 ) {
+				alert("이메일 도메인을 입력해야지!");
+				return false;
+			}
+			if( mobile2.length == 0 || mobile3.length == 0) {
+				alert("휴대폰번호 정확히 입력해야지!");
+				return false;
+			}
+	}
 	
 	function inputCharReplace() {
 		let regExp = /[^A-Za-z0-9]/g;
@@ -138,7 +292,7 @@ $(function() {
                 if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
                     addr = data.roadAddress;
                 } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                    addr = data.jibunAddress;
+                	addr = data.roadAddress;
                 }
 
                 // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
@@ -157,17 +311,14 @@ $(function() {
                         extraAddr = ' (' + extraAddr + ')';
                     }
                     // 조합된 참고항목을 해당 필드에 넣는다.
-                    document.getElementById("sample6_extraAddress").value = extraAddr;
-                
-                } else {
-                    document.getElementById("sample6_extraAddress").value = '';
-                }
+                    addr += extraAddr;   
+                } 
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample6_postcode').value = data.zonecode;
-                document.getElementById("sample6_address").value = addr;
+               $("#zipcode").val(data.zonecode);
+               $("#address1").val(addr);
                 // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("sample6_detailAddress").focus();
+                $("#address2").focus();
             }
         }).open();
     }

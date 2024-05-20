@@ -59,4 +59,24 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 
+	@Override
+	public boolean memberPassCheck(String id, String pass) {
+		String dbPass = memberDao.memberPassCheck(id);
+		boolean result = false;
+		
+		if(passwordEncoder.matches(pass, dbPass)) {
+			result = true;
+		}
+		
+		return result;
+	}
+
+	@Override
+	public void updateMember(Member member) {
+		
+		member.setPass(passwordEncoder.encode(member.getPass()));
+		memberDao.updateMember(member);
+		
+	}
+
 }
