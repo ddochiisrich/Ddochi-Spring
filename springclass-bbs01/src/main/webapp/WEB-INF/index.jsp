@@ -36,7 +36,7 @@
 					</div>
 					<div class="mb-3">
 						<label for="pass" class="form-label fw-bold">비밀번호 : </label>
-						<input type="text" id="pass" name="pass" class="form-control" >
+						<input type="password" id="pass" name="pass" class="form-control" >
 					</div>
 				</div>
 				<div class="modal-footer">

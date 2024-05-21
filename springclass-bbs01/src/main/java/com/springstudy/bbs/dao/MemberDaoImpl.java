@@ -12,12 +12,18 @@ public class MemberDaoImpl implements MemberDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	private final String NAME_SPACE = "com.springstudy.bbs.mapper.MemberMapper";
+	private final String NAME_SPACE = "com.springstudy.bbs.Mapper.memberMapper";
 	
 	@Override
 	public Member getMember(String id) {
 		
 		return sqlSession.selectOne(NAME_SPACE + ".getMember", id);
+	}
+
+	@Override
+	public void addMember(Member member) {
+		sqlSession.insert(NAME_SPACE + ".addMember", member);
+		
 	}
 
 }

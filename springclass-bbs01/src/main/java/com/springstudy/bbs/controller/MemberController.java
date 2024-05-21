@@ -24,6 +24,42 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	@RequestMapping("/joinResult")
+	public String joinResult(Model model, Member member, String pass1, String emailId, String emailDomain, String mobile1, String mobile2, String mobile3, String phone1, String phone2, String phone3, @RequestParam(value="emailGet", required=false, defaultValue="false") boolean emailGet) {
+		
+		member.setPass(pass1);
+		member.setEmail(emailId + "@" + emailDomain);
+		member.setMobile(mobile1 + "-" + mobile2 + "-" + mobile3);
+		
+		if(phone2.equals("") || phone3.equals("")) {
+			member.setPhone("");
+		} else {
+			member.setPhone(phone1 + "-" + phone2 + "-" + phone3);
+		}
+		member.setEmailGet(Boolean.valueOf(emailGet));
+		///////////////////////////////////////////////////////////////
+		System.out.println(emailGet);
+		System.out.println(Boolean.valueOf(emailGet));
+		///////////////////////////////////////////////////////////////
+		
+		memberService.addMember(member);
+		System.out.println("joinResult : " + member.getName());
+		
+		return "redirect:loginForm";
+	}
+	
+	@RequestMapping("/overlapIdCheck")
+	public String overlapIdCheck(Model model, String id) {
+		boolean overlap = memberService.overlapIdCheck(id);
+		
+		System.out.println("overlap : " + overlap);
+		
+		model.addAttribute("id", id);
+		model.addAttribute("overlap", overlap);
+		
+		return "forward:WEB-INF/views/member/overlapIdCheck.jsp";
+	}
+	
 	@PostMapping("/login")
 	public String login(@RequestParam("userId") String id, String pass, HttpSession session, HttpServletResponse response, Model model) throws IOException{
 		int result = memberService.login(id, pass);

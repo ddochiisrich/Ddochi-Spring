@@ -10,6 +10,7 @@
 		http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	
 	<import resource="classpath:datasource/dbcpdatasource.xml" />
 	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -17,6 +18,7 @@
 		<property name="mapperLocations" value="classpath:repository/mappers/**/*Mapper.xml" /> 
 		<property name="typeAliasesPackage" value="com.springstudy.bbs.domain" /><!-- 이 친구는 무슨원리인가...? -->
 	</bean>	
+	
 	
 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" c:sqlSessionFactory-ref="sqlSessionFactory" />
 	

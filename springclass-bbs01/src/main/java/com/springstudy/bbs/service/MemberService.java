@@ -8,4 +8,8 @@ public interface MemberService {
 	
 	public Member getMember(String id);
 	
+	public boolean overlapIdCheck(String id);
+	
+	public void addMember(Member member);
+	
 }

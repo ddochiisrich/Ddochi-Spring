@@ -22,7 +22,7 @@
 						
 					<li class="nav-item"><a class="nav-link" href="boardList">게시글리스트</a></li>
 					<c:if test="${ not sessionScope.isLogin }">
-						<li class="nav-item"><a class="nav-link" href="#">회원가입</a></li>
+						<li class="nav-item"><a class="nav-link" href="joinForm">회원가입</a></li>
 					</c:if>
 					<c:if test="${ sessionScope.isLogin }">
 						<li class="nav-item"><a class="nav-link" href="#">정보수정</a></li>
