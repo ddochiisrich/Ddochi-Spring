@@ -7,6 +7,10 @@ import com.springstudy.bbs.domain.Board;
 import com.springstudy.bbs.domain.Reply;
 
 public interface BoardService {
+	
+	// 추천 땡큐를 업데이트 하고 갱신된 추천/땡큐 수를 반환하는 메서드
+	Map<String, Integer> recommend(int no, String recommend);
+	
 	// 게시글 번호에 해당하는 댓글 리스트를 반환하는 메서드
 	public abstract List<Reply> replyList(int no);
 

@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script src="resources/js/formcheck.js"></script>
+<script src="resources/js/reply.js"></script>
 <div class="row my-5" id="global-content">
 	<div class="col">
 		<div class="row">

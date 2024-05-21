@@ -7,6 +7,12 @@ import com.springstudy.bbs.domain.Reply;
 
 public interface BoardDao {
 	
+	// 게시글 번호에 해당하는 추천과 땡큐를 업데이트하는 메서드
+	void updateRecomemd(int no, String recommend);
+	
+	// 게시글 번호에 해당하는 추천과 땡큐 수를 읽어오는 메서드
+	Board getRecommend(int no);
+	
 	// 게시글 번호에 해당하는 댓글 리스트를 가져오는 메소드
 	public abstract List<Reply> replyList(int no);
 	

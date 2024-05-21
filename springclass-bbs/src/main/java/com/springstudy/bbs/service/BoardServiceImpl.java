@@ -103,6 +103,20 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.replyList(no);
 	}
 
+	@Override
+	public Map<String, Integer> recommend(int no, String recommend) {
+		
+		boardDao.updateRecomemd(no, recommend);
+		Board board = boardDao.getBoard(no);
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		
+		map.put("recommend", board.getRecommend());
+		map.put("thank", board.getThank());
+		
+		return map;
+	}
+
 	
 
 }
