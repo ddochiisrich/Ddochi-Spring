@@ -1,10 +1,14 @@
 package com.springstudy.bbs.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.springstudy.bbs.domain.Board;
+import com.springstudy.bbs.domain.Reply;
 
 public interface BoardService {
+	// 게시글 번호에 해당하는 댓글 리스트를 반환하는 메서드
+	public abstract List<Reply> replyList(int no);
 
 	// 게시글 리스트 - 테이블에 있는 게시글 리스트를 읽어와 반환하는 메서드
 	public abstract Map<String, Object> boardList(int pageNum, String type, String keyword);

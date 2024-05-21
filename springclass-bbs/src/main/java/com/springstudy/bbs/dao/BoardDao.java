@@ -3,8 +3,12 @@ package com.springstudy.bbs.dao;
 import java.util.List;
 
 import com.springstudy.bbs.domain.Board;
+import com.springstudy.bbs.domain.Reply;
 
 public interface BoardDao {
+	
+	// 게시글 번호에 해당하는 댓글 리스트를 가져오는 메소드
+	public abstract List<Reply> replyList(int no);
 	
 	// 게시글 읽은 횟수를 증가시키는 메서드
 	public abstract void incrementReadCount(int no);

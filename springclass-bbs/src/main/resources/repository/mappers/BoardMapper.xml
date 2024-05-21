@@ -22,6 +22,18 @@
 -->
 <mapper namespace="com.springstudy.bbs.mapper.BoardMapper" >
 
+	<select id="replyList" resultType="Reply">
+		SELECT 
+			no,
+			bbs_no as bbsNo,
+			reply_content as replyContent,
+			reply_writer as replyWriter,
+			reg_date as regDate 
+		FROM reply 
+		WHERE bbs_no=#{no}
+		ORDER BY no DESC
+	</select>
+
 	<update id="incrementReadCount">
 		UPDATE
 		springbbs
