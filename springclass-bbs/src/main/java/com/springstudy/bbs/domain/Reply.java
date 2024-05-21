@@ -1,4 +1,4 @@
-package com.springstudy.bbs.dao;
+package com.springstudy.bbs.domain;
 
 import java.sql.Timestamp;
 
