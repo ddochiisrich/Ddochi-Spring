@@ -2,16 +2,21 @@ package com.springstudy.bbs.domain;
 
 import java.sql.Timestamp;
 
+/* 하나의 게시 글 정보를 저장하는 클래스(Domain, VO, Beans, DTO)
+ * 게시 글 정보를 저장하고 있는 테이블의 필드와 1:1 맵핑되는 Domain 클래스
+ **/
 public class Board {
-	// no, title, writer, content, reg_date, read_count, pass, file1
+
 	private int no;
-	private String title;	
+	private String title;
 	private String writer;
-	private String content;
+	private String content;	
 	private Timestamp regDate;
 	private int readCount;
 	private String pass;
 	private String file1;
+	private int recommend;
+	private int thank;
 	
 	public Board() { }
 	public Board(int no, String title, String writer, String content, 
@@ -43,7 +48,7 @@ public class Board {
 	}
 	public void setWriter(String writer) {
 		this.writer = writer;
-	}
+	}	
 	public String getContent() {
 		return content;
 	}
@@ -74,4 +79,16 @@ public class Board {
 	public void setFile1(String file1) {
 		this.file1 = file1;
 	}
+	public int getRecommend() {
+		return recommend;
+	}
+	public void setRecommend(int recommend) {
+		this.recommend = recommend;
+	}
+	public int getThank() {
+		return thank;
+	}
+	public void setThank(int thank) {
+		this.thank = thank;
+	}	
 }

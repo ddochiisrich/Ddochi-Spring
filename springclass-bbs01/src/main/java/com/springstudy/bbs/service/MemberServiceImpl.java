@@ -59,4 +59,18 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 
+	@Override
+	public boolean memberPassCheck(String id, String pass) {
+		
+		String dbPass = memberDao.memberPassCheck(id, pass);
+		
+		return false;
+	}
+
+	@Override
+	public void updateMember(Member member) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

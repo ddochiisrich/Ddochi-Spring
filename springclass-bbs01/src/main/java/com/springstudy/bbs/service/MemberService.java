@@ -12,4 +12,8 @@ public interface MemberService {
 	
 	public void addMember(Member member);
 	
+	public boolean memberPassCheck(String id, String pass);
+	
+	public void updateMember(Member member);
+	
 }
