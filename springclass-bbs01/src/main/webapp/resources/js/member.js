@@ -1,4 +1,50 @@
 $(function() {
+	$("#btnPassCheck").click(function(){
+		var oldId = $("#id").val();
+		var oldPass = $("#oldPass").val();
+		
+		if($.trim(oldPass).length == 0) {
+			alert("기존비밀번호 퍼뜩 입력안하나 임마");
+			return false;
+		}
+		
+		var data = "id=" + oldId + "&pass=" + oldPass;
+		console.log("data : " + data);
+		
+		$.ajax({
+			
+			url : "passCheck.ajax",
+			type : "get",
+			data : data,
+			dataType : "json",
+			success : function(resData){
+				if(resData.result) {
+					alert("비밀번호가 확인되었습니다.");
+					$("#btnPassCheck").attr("disabled", true);
+					$("#oldPass").attr("readonly", true);
+					$("#pass1").focus();
+					
+				}else {
+					alert("비밀번호가 다르잖아 짜식아")
+					$("#oldPass").val("").focus();
+				}
+			},
+			error : function() {
+				console.log("error");
+			}
+		})
+		
+	})
+	
+	$("#memberUpdateForm").on("submit", function(){
+		
+		if(!$("#btnPassCheck").attr("disabled")) {
+			alert("아가야 비밀번호 확인 먼저해야한다잉");
+			return false;
+		}
+		return joinFormCheck();
+	})
+	
 	
 	
 	// 이메일 입력 셀렉트 박스에서 선택된 도메인을 설정하는 함수

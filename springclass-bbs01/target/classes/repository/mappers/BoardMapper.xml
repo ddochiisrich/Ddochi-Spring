@@ -4,6 +4,36 @@
 
 <mapper namespace="com.springstudy.bbs.mapper.BoardMapper">
 
+	<select id="getRecommend" resultType="Board">
+		SELECT recommend, thank
+		FROM springbbs
+		WHERE no = #{no}
+	</select>
+
+	<update id="updateRecommend">
+		UPDATE springbbs
+		SET
+			<if test="recommend == 'commend'">
+				recommend = recommend + 1 
+			</if>
+			<if test="recommend == 'thank'">
+				thank = thank + 1 
+			</if>
+		WHERE no = #{no}
+	</update>
+
+	<select id="replyList" resultType="Reply">
+		SELECT
+			no,
+			bbs_no as bbsNo,
+			reply_content as replyContent,
+			reply_writer as replyWriter,
+			reg_date as regDate
+		FROM reply
+		WHERE bbs_no = #{no}
+		ORDER BY no DESC
+	</select>
+
 	<update id="incrementReadCount">
 		UPDATE springbbs
 		SET read_count = read_count + 1

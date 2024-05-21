@@ -27,7 +27,7 @@
 </update>
 
 <select id="memberPassCheck" resultType="String">
-	SELECT password FROM member WHERE id = #{id}
+	SELECT pass FROM member WHERE id = #{id}
 </select>
 
 <insert id="addMember" parameterType="Member">

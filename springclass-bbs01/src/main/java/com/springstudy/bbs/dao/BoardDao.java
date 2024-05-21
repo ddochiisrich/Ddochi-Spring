@@ -3,8 +3,16 @@ package com.springstudy.bbs.dao;
 import java.util.List;
 
 import com.springstudy.bbs.domain.Board;
+import com.springstudy.bbs.domain.Reply;
 
 public interface BoardDao {
+	
+	public abstract Board getRecommend(int no);
+	
+	public abstract void updateRecommend(int no, String recommend);
+	
+	public abstract List<Reply> replyList(int no);
+	
 	public abstract void incrementReadCount(int no);
 	
 	public abstract List<Board> boardList(int startRow, int num, String type, String keyword);

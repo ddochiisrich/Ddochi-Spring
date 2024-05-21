@@ -25,7 +25,7 @@
 						<li class="nav-item"><a class="nav-link" href="joinForm">회원가입</a></li>
 					</c:if>
 					<c:if test="${ sessionScope.isLogin }">
-						<li class="nav-item"><a class="nav-link" href="#">정보수정</a></li>
+						<li class="nav-item"><a class="nav-link" href="memberUpdateForm">정보수정</a></li>
 					</c:if>
 					<li class="nav-item"><a class="nav-link" href="#">주문/배송조회</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">고객센터</a></li>

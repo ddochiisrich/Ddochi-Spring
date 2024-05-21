@@ -8,8 +8,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="resources/bootstrap/bootstrap.min.css" rel="stylesheet">
 <link href="resources/css/member.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <script src="resources/js/jquery-3.7.1.min.js"></script>
 <script src="resources/js/member.js"></script>
+<script src="resources/js/reply.js"></script>
+
 </head>
 <body>
 	<div class="container">

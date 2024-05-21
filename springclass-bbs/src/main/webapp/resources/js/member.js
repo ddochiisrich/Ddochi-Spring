@@ -36,6 +36,7 @@ $(function() {
 			dataType : "json", 			//응답으로 받을 결과 데이터형식
 			success : function(resData){// ajax가 성공되고 응답 데이터를 dataType에 맞게 파싱이 완료면 호출되는 콜백
 				console.log(resData);
+				console.log(resData.result);
 				if(resData.result){// 비밀번호가 맞으면
 					// 비밀번호 확인 버튼을 비활성화 - disabled
 					alert("비밀번호가 확인 되었다!");
