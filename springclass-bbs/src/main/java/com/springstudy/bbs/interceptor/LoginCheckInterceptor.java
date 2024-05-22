@@ -24,7 +24,6 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 		// 우리 컨트롤러가 호출된 후에 실행됨 디스패쳐 실행 전
-		System.out.println("postHandler : " + modelAndView.getViewName());
 	}
 
 	@Override

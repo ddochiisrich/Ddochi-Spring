@@ -117,6 +117,13 @@ public class BoardServiceImpl implements BoardService {
 		return map;
 	}
 
+	@Override
+	public void addReply(Reply reply) {
+		
+		boardDao.addReply(reply);
+		
+	}
+
 	
 
 }

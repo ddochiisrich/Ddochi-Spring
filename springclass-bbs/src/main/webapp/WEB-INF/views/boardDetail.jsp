@@ -99,6 +99,9 @@
 				</div>
 			</div>
 		</div>
+		
+		<!-- 이 위치로 폼을 이동 -->
+		
 		<!-- 댓글 헤더 -->
 		<div class="row" id="replyTitle">
 			<div class="col vorder p-2 text-center bg-danger text-white">
@@ -153,8 +156,30 @@
 		<!-- 댓글 리스
 		
 		<!--  댓글 쓰기 폼영역 -->
-		<div class="row">
-			<div class="col"></div>
+		<div class="row my-3 d-none" id="replyForm">
+			<div class="col">
+				<form name="replyWriteForm" id="replyWriteForm">
+					<input type="hidden" name="bbsNo" value="${ board.no }">
+					<input type="hidden" name="replyWriter" value="${ sessionScope.member.id }">
+					<div class="row my-3 p-3 border">
+						<div class="col">
+							<div class="row">
+								<div class="col text-center">
+									악의적인 댓글은 예고없이 사라진다 이말이야!!!!
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-10">
+									<textarea name="replyContent" id="replyContent" class="form-control" rows="4"></textarea>
+								</div>
+								<div class="col-md-2">
+									<input type="submit" value="댓글쓰기" class="btn btn-danger w-100 h-100" id="replyWriterButton">
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
 		</div>
 		<!-- 댓글 리스트 -->
 	</div>
