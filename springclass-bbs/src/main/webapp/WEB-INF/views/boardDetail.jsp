@@ -126,9 +126,9 @@
 										<span class="me-3">
 											<fmt:formatDate value="${reply.regDate }" pattern="yyyy-MM-dd HH:mm"/>
 										</span>
-										<button class="modifyReply btn btn-outline-success btn-sm"><i class="bi bi-journals"></i> 수정</button>
-										<button class="deleteReply btn btn-outline-warning btn-sm"><i class="bi bi-trash3"></i> 삭제</button>
-										<button class="deleteReply btn btn-outline-danger btn-sm"><i class="bi bi-fire"></i> 신고</button>
+										<button class="modifyReply btn btn-outline-success btn-sm" data-no="${reply.no }"><i class="bi bi-journals"></i> 수정</button>
+										<button class="deleteReply btn btn-outline-warning btn-sm" data-no="${reply.no }"><i class="bi bi-trash3"></i> 삭제</button>
+										<button class="deleteReply btn btn-outline-danger btn-sm" data-no="${reply.no }"><i class="bi bi-fire"></i> 신고</button>
 									</div>
 								</div>
 								<!-- 댓글 내용 영역 -->
