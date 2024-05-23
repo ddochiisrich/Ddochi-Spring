@@ -22,6 +22,19 @@
 -->
 <mapper namespace="com.springstudy.bbs.mapper.BoardMapper" >
 
+	<!-- 댓글삭제 -->
+	<delete id="deleteReply">
+		DELETE FROM reply WHERE no=#{no}
+	</delete>
+
+	  <!--  -->
+	<update id="updateReply">
+		UPDATE reply
+			SET reply_content=#{replyContent},
+			reg_date= SYSDATE()
+		WHERE no = #{no}
+	</update>
+
 	<!-- 댓글을 추가하는 매핑 구문 -->
 	<insert id="addReply" parameterType="Reply">
 		INSERT INTO

@@ -1,5 +1,6 @@
 package com.springstudy.bbs.ajax;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,24 @@ public class BoardAjaxController {
 	@Autowired
 	private BoardService boardService;
 	
+	@RequestMapping("replyDelete.ajax")
+	@ResponseBody
+	public  List<Reply> deleteReply(int no, int bbsNo) {
+		
+		boardService.deleteReply(no);
+		
+		return boardService.replyList(bbsNo);
+		
+	}
+	
+	@RequestMapping("replyUpdate.ajax")
+	@ResponseBody
+	public List<Reply> updateReply(Reply reply) {
+
+		boardService.updateReply(reply);
+		
+		return boardService.replyList(reply.getBbsNo());
+	}
 	
 	// 댓글
 	@RequestMapping("/replyWrite.ajax")

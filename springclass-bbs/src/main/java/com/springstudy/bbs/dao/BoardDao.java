@@ -6,6 +6,13 @@ import com.springstudy.bbs.domain.Board;
 import com.springstudy.bbs.domain.Reply;
 
 public interface BoardDao {
+	
+	// 댓글 삭제 메서드
+	void deleteReply(int no);
+	
+	// DB에서 NO에 해당하는 댓글을 수정하는 메서드
+	void updateReply(Reply reply);
+	
 	// 데이터베이스에 댓글을 추가하는 메서드
 	void addReply(Reply reply);
 	

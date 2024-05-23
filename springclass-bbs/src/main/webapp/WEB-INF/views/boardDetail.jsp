@@ -103,10 +103,18 @@
 		<!-- 이 위치로 폼을 이동 -->
 		
 		<!-- 댓글 헤더 -->
+		<div class="row">
+			<div class="col text-end mb-2">
+				<button class="btn btn-danger" id="stop">타이머 스탑</button>
+				<button class="btn btn-primary" id="start">타이머 스타트</button>
+			</div>
+		</div>
 		<div class="row" id="replyTitle">
 			<div class="col vorder p-2 text-center bg-danger text-white">
 				<h3 class="fs-4">이 글에 대한 댓글 리스트</h3>
+				<h4 id=time>현재 시간 : </h4>
 			</div>
+			
 		</div>
 		<!-- 댓글 리스트 영역 -->
 		<!-- 댓글이 존재하는경우 -->
@@ -120,7 +128,7 @@
 								<!--  댓글 작성자 수정 삭제 신고 버튼영역 -->
 								<div class="row p-2 border-bottom align-items-center">
 									<div class="col-4">
-										<span>⭐ ️${ reply.replyWriter }</span>
+										<span>️${ reply.replyWriter }</span>
 									</div>
 									<div class="col-8 text-end">
 										<span class="me-3">
@@ -128,7 +136,7 @@
 										</span>
 										<button class="modifyReply btn btn-outline-success btn-sm" data-no="${reply.no }"><i class="bi bi-journals"></i> 수정</button>
 										<button class="deleteReply btn btn-outline-warning btn-sm" data-no="${reply.no }"><i class="bi bi-trash3"></i> 삭제</button>
-										<button class="deleteReply btn btn-outline-danger btn-sm" data-no="${reply.no }"><i class="bi bi-fire"></i> 신고</button>
+										<button class="btn btn-outline-danger btn-sm" data-no="${reply.no }"><i class="bi bi-fire"></i> 신고</button>
 									</div>
 								</div>
 								<!-- 댓글 내용 영역 -->

@@ -1,6 +1,189 @@
 $(function(){
+
+	// 댓글 삭제 버튼이 클릭되면
+	$(document).on("click", ".deleteReply", function(e){
+		
+		$("#replyForm").slideUp(300);
+		$("#global-content > div").append($("#replyForm"));
+		
+		let no = $(this).attr("data-no");
+		let writer = $(this).parent().prev().find("span").text();
+		let bbsNo = $("#replyForm input[name=bbsNo]").val();
+		let params = "no=" + no + "&bbsNo=" + bbsNo;
+		
+		console.log(params);
+		let result = confirm(writer + "님이 작성한" + no + "번 댓글을 삭제하시겠습니까?");
+		
+		if(result) {
+		
+		$.ajax({
+			url : "replyDelete.ajax",
+			type : "post", 
+			data : params,
+			dataType : "json",
+			success : function(resData){
+				console.log(resData);
+
+				$("#replyList").empty();
+
+				$.each(resData, function(i, v){
+					let date = new Date(v.regDate);
+
+					let strDate = date.getFullYear() + "-" 
+							+ ((date.getMonth() + 1) < 10 
+									? "0" + (date.getMonth() + 1) : "0" + (date.getMonth() + 1)) + "-"
+									+ (date.getDate() < 10
+											? "0" + date.getDate() : date.getDate()) + " " 
+											+ (date.getHours() < 10 
+													? "0" + date.getHours() : date.getHours()) + ":" 
+													+ (date.getMinutes() < 10 
+															? "0" + date.getMinutes() : date.getMinutes()) + ":" 
+															+ (date.getSeconds() < 10
+																	? "0" + date.getSeconds() : date.getSeconds());
+
+					let result = 
+
+							'<div class="row replyRow border border-top-0">'
+							+'<div class="col">'
+							+   '<div class="row p-2 border-bottom align-items-center">'
+							+   '<div class="col-4">'
+							+   '      <span>'+ v.replyWriter +'</span>'
+							+   '   </div>'
+							+   '   <div class="col-8 text-end">'
+							+   '      <span class="me-3">'
+							+      strDate 
+							+   '      </span>'
+							+   '      <button class="modifyReply btn btn-outline-success btn-sm" data-no="' + v.no + '"> <i class="bi bi-journal-text">수정</i></button>'                       
+							+   '      <button class="deleteReply btn btn-outline-warning btn-sm" data-no="' + v.no + '"><i class="bi bi-trash">삭제</i></button>'
+							+   '      <button class="btn btn-outline-danger btn-sm" data-no="' + v.no + '"><i class="bi bi-telephone">신고</i></button>'
+							+   '      </div>'
+							+   '   </div>'
+							+   '   <div class="row ">'
+							+   '      <div class="col p-3 ">'
+							+   '         <pre>'+v.replyContent+'</pre>'
+							+   '         </div>'
+							+   '      </div>'
+							+   '   </div>'
+							+   '   </div>'
+
+							$("#replyList").append(result);
+
+				});
+
+				$("#replyForm").slideUp(300).add("#replyContent").val("");
+
+			},
+			error : function(){
+				console.log("error가 발생했다 이말이야");
+			}
+		});
+		}
+		return false;
+	});
+	
+	// 댓글 수정 폼이 서브밋 될 때
+	$(document).on("submit", "#replyUpdateForm", function(e){
+
+		if($("#replyContent").val().length < 5) {
+			alert("댓글은 5자 이상이어야 합니다.");
+			return false;
+		}
+
+		// bbsNo=10&replyWriter=midasreplyContent=111111111&no=2
+		let params=$(this).serialize() + "&no=" + $(this).attr("data-no");
+		console.log(params);
+		
+		$("#replyForm").slideUp(300);
+		$("#global-content > div").append($("#replyForm"));
+
+		$.ajax({
+			url : "replyUpdate.ajax",
+			type : "post", 
+			data : params,
+			dataType : "json",
+			success : function(resData){
+				console.log(resData);
+
+				$("#replyList").empty();
+
+				$.each(resData, function(i, v){
+					let date = new Date(v.regDate);
+
+					let strDate = date.getFullYear() + "-" 
+							+ ((date.getMonth() + 1) < 10 
+									? "0" + (date.getMonth() + 1) : "0" + (date.getMonth() + 1)) + "-"
+									+ (date.getDate() < 10
+											? "0" + date.getDate() : date.getDate()) + " " 
+											+ (date.getHours() < 10 
+													? "0" + date.getHours() : date.getHours()) + ":" 
+													+ (date.getMinutes() < 10 
+															? "0" + date.getMinutes() : date.getMinutes()) + ":" 
+															+ (date.getSeconds() < 10
+																	? "0" + date.getSeconds() : date.getSeconds());
+
+					let result = 
+
+							'<div class="row replyRow border border-top-0">'
+							+'<div class="col">'
+							+   '<div class="row p-2 border-bottom align-items-center">'
+							+   '<div class="col-4">'
+							+   '      <span>️'+ v.replyWriter +'</span>'
+							+   '   </div>'
+							+   '   <div class="col-8 text-end">'
+							+   '      <span class="me-3">'
+							+      strDate 
+							+   '      </span>'
+							+   '      <button class="modifyReply btn btn-outline-success btn-sm" data-no="' + v.no + '"> <i class="bi bi-journal-text">수정</i></button>'                       
+							+   '      <button class="deleteReply btn btn-outline-warning btn-sm" data-no="' + v.no + '"><i class="bi bi-trash">삭제</i></button>'
+							+   '      <button class="btn btn-outline-danger btn-sm" data-no="' + v.no + '"><i class="bi bi-telephone">신고</i></button>'
+							+   '      </div>'
+							+   '   </div>'
+							+   '   <div class="row ">'
+							+   '      <div class="col p-3 ">'
+							+   '         <pre>'+v.replyContent+'</pre>'
+							+   '         </div>'
+							+   '      </div>'
+							+   '   </div>'
+							+   '   </div>'
+
+							$("#replyList").append(result);
+
+				});
+
+				$("#replyForm").slideUp(300).add("#replyContent").val("");
+
+			},
+			error : function(){
+				console.log("error가 발생했다 이말이야");
+			}
+		});
+		return false;
+	});
+
+	// 타이머
+	let timer;
+	let clockStart = function(){
+		timer = setInterval(function(){
+			let date = new Date();
+			$("#time").text("현재시간 : " + date.toLocaleTimeString());
+		}, 100);
+	}
+
+	setTimeout(function(){
+		clockStart();
+	});
+
+	$("#stop").on("click", function(){
+		clearInterval(timer);
+	});
+
+	$("#start").on("click", function(){
+		clockStart();
+	})
+
 	// 댓글 쓰기 폼이 서브밋 될 때
-	$("#replyWriteForm").on("submit", function(e){
+	//	$("#replyWriteForm").on("submit", function(e){
+	$(document).on("submit", "#replyWriteForm", function(e){
 		//댓글은 5글자 이상
 		if($("#replyContent").val().length < 5) {
 			alert("댓글은 5자 이상이어야 합니다.");
@@ -42,7 +225,7 @@ $(function(){
 							+'<div class="col">'
 							+   '<div class="row p-2 border-bottom align-items-center">'
 							+   '<div class="col-4">'
-							+   '      <span>⭐️'+ v.replyWriter +'</span>'
+							+   '      <span>️'+ v.replyWriter +'</span>'
 							+   '   </div>'
 							+   '   <div class="col-8 text-end">'
 							+   '      <span class="me-3">'
@@ -50,7 +233,7 @@ $(function(){
 							+   '      </span>'
 							+   '      <button class="modifyReply btn btn-outline-success btn-sm" data-no="' + v.no + '"> <i class="bi bi-journal-text">수정</i></button>'                       
 							+   '      <button class="deleteReply btn btn-outline-warning btn-sm" data-no="' + v.no + '"><i class="bi bi-trash">삭제</i></button>'
-							+   '      <button class="deleteReply btn btn-outline-danger btn-sm" data-no="' + v.no + '"><i class="bi bi-telephone">신고</i></button>'
+							+   '      <button class="btn btn-outline-danger btn-sm" data-no="' + v.no + '"><i class="bi bi-telephone">신고</i></button>'
 							+   '      </div>'
 							+   '   </div>'
 							+   '   <div class="row ">'
@@ -82,7 +265,7 @@ $(function(){
 
 			//현재 댓글 쓰기 위치에 있는지
 			let $prev = $("#replyTitle").prev();
-			if(!$next.is("#replyForm")) {
+			if(!$prev.is("#replyForm")) {
 				$("#replyForm").slideUp(300);
 			}
 

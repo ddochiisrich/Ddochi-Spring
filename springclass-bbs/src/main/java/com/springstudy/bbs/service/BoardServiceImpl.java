@@ -124,6 +124,19 @@ public class BoardServiceImpl implements BoardService {
 		
 	}
 
+	@Override
+	public void updateReply(Reply reply) {
+		
+		boardDao.updateReply(reply);
+		
+	}
+
+	@Override
+	public void deleteReply(int no) {
+		boardDao.deleteReply(no);
+		
+	}
+
 	
 
 }

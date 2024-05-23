@@ -3,7 +3,7 @@ package com.springstudy.bbs.service;
 import com.springstudy.bbs.domain.Member;
 
 public interface MemberService {
-
+	
 	// 회원 정보 수정 시에 기존 비밀번호가 맞는지 체크하는 메서드
 	public abstract boolean memberPassCheck(String id, String pass);
 
