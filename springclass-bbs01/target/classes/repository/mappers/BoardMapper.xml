@@ -4,6 +4,24 @@
 
 <mapper namespace="com.springstudy.bbs.mapper.BoardMapper">
 
+	<delete id="deleteReply">
+		DELETE FROM reply
+		WHERE no = #{no}
+	</delete>
+
+	<update id="updateReply" parameterType="Reply">
+		UPDATE reply
+		SET reply_content = #{replyContent},
+			reg_date = SYSDATE()
+		WHERE no = #{no}
+	</update>
+	
+	
+	<insert id="addReply" parameterType="Reply">
+		INSERT INTO reply(bbs_no, reply_content, reply_writer, reg_date)VALUES(#{bbsNo}, #{replyContent}, #{replyWriter}, SYSDATE())
+
+	</insert>
+
 	<select id="getRecommend" resultType="Board">
 		SELECT recommend, thank
 		FROM springbbs

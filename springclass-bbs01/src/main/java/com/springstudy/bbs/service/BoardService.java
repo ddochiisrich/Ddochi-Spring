@@ -8,6 +8,12 @@ import com.springstudy.bbs.domain.Reply;
 
 public interface BoardService {
 	
+	public abstract void deleteReply(int no);
+	
+	public abstract void addReply(Reply reply);
+	
+	public abstract void updateReply(Reply reply);
+	
 	public abstract Map<String, Integer> recommend(int no, String recommend);
 	
 	public abstract List<Reply> replyList(int no);

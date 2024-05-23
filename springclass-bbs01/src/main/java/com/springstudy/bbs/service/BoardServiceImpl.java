@@ -117,4 +117,25 @@ public class BoardServiceImpl implements BoardService {
 		return map;
 	}
 
+	@Override
+	public void updateReply(Reply reply) {
+		
+		boardDao.updateReply(reply);
+		
+	}
+
+	@Override
+	public void addReply(Reply reply) {
+		
+		boardDao.addReply(reply);
+		
+	}
+
+	@Override
+	public void deleteReply(int no) {
+		
+		boardDao.deleteReply(no);
+		
+	}
+
 }

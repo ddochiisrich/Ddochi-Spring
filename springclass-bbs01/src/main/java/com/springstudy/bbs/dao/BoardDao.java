@@ -7,6 +7,12 @@ import com.springstudy.bbs.domain.Reply;
 
 public interface BoardDao {
 	
+	public void deleteReply(int no);
+	
+	public void addReply(Reply reply);
+	
+	public void updateReply(Reply reply);
+	
 	public abstract Board getRecommend(int no);
 	
 	public abstract void updateRecommend(int no, String recommend);
