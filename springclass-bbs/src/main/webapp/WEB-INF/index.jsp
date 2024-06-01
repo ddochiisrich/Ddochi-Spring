@@ -26,7 +26,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header bg-primary text-white">
-					<h1 class="modal-title fs-5" id="exampleModalLabel">회원 로그인</h1>
+					<h1 class="modal-title fs-5" id="exampleModalLabel">회원 로그인!</h1>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<form action="login" method="post" id="modalLoginForm">
